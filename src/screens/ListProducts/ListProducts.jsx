@@ -1,14 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../context/DataProvider";
 import Products from "./Products";
+import AddButton from "../../component/AddButton";
 
 const ListProducts = () => {
-  let { loggedUser, myProducts, cartItems, setCartItems } =
+  let { loggedUser, myProducts, setMyProducts, cartItems, setCartItems } =
     useContext(DataContext);
 
   let [feed, setFeed] = useState([]);
 
   let [search, setSearch] = useState(null);
+
+  let [addDiv, setAddDiv] = useState(false);
+
+  let [addProduct, setAddProduct] = useState({
+    productName: "",
+    brand: "",
+    price: "",
+    category: "",
+    image: "",
+  });
 
   let [fetchProduct, setFetchProduct] = useState({
     productData: null,
@@ -95,15 +106,44 @@ const ListProducts = () => {
     }
   }
 
+  let myTimeOut = null;
   function handleSearch(eve) {
+    if (!myTimeOut) clearTimeout(myTimeOut);
+
+    myTimeOut = setTimeout(() => {
+      let searchedVal = myProducts.filter((itm) =>
+        itm.productName.toLowerCase().includes(eve.target.value.toLowerCase())
+      );
+      if (searchedVal.length > 0) {
+        setFeed(searchedVal);
+      }
+    }, 3000);
+
     setSearch(eve.target.value);
+  }
+  function manageAddOnChange(eve) {
+    setAddProduct((preVal) => ({
+      ...preVal,
+      [eve.target.id]: eve.target.value,
+    }));
   }
 
   function handleSearchBtn() {
-    let searchedVal = myProducts.filter((itm) => itm.productName == search);
+    let searchedVal = myProducts.filter((itm) =>
+      itm.productName.toLowerCase().includes(search.toLowerCase())
+    );
     if (searchedVal.length > 0) {
       setFeed(searchedVal);
     }
+  }
+
+  function manageAddClick() {
+    console.log(addProduct);
+    addProduct.id = myProducts.length + 1;
+    addProduct.like = 0;
+    addProduct.dislike = 0;
+    setMyProducts((preVal) => [...preVal, addProduct]);
+    setAddDiv(false);
   }
 
   return (
@@ -121,7 +161,61 @@ const ListProducts = () => {
         >
           Search
         </button>
+        <button
+          onClick={() => setAddDiv(true)}
+          className="border border-blue-600 hover:bg-amber-200 m-5 p-2"
+        >
+          Add
+        </button>
       </div>
+
+      {addDiv && (
+        <div className="col-span-12 border border-black rounded-lg shadow-lg m-5 p-3">
+          <h1>Add product</h1>
+
+          <input
+            id="productName"
+            placeholder="name"
+            className="border border-black p-3 m-3"
+            value={addProduct.productName}
+            onChange={manageAddOnChange}
+          />
+          <input
+            id="brand"
+            placeholder="brand"
+            className="border border-black p-3 m-3"
+            value={addProduct.brand}
+            onChange={manageAddOnChange}
+          />
+          <input
+            id="price"
+            placeholder="price"
+            className="border border-black p-3 m-3"
+            value={addProduct.price}
+            onChange={manageAddOnChange}
+          />
+          <input
+            id="category"
+            placeholder="category"
+            className="border border-black p-3 m-3"
+            value={addProduct.category}
+            onChange={manageAddOnChange}
+          />
+          <input
+            id="image"
+            placeholder="image"
+            className="border border-black p-3 m-3"
+            value={addProduct.image}
+            onChange={manageAddOnChange}
+          />
+          <AddButton
+            manageClick={manageAddClick}
+            value={"Add"}
+            style={"m-2 p-3 min-w-10 rounded-xl bg-green-300"}
+          />
+        </div>
+      )}
+
       {feed.map((element) => (
         <Products eachProducts={element} addToCart={addToCart} />
       ))}

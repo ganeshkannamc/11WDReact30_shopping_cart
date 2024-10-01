@@ -216,9 +216,13 @@ const ListProducts = () => {
         </div>
       )}
 
-      {feed.map((element) => (
-        <Products eachProducts={element} addToCart={addToCart} />
-      ))}
+      {feed.length > 0 ? (
+        feed.map((element, ind) => (
+          <Products key={ind} eachProducts={element} addToCart={addToCart} />
+        ))
+      ) : (
+        <h1>No list to dispaly</h1>
+      )}
     </div>
   );
 };

@@ -26,9 +26,11 @@ const Login = () => {
     );
     if (validate) {
       setLoginInfo((preVal) => ({ ...preVal, status: true }));
+      setLoggedUser(loginInfo);
       navigateToScreen("/products");
+    } else {
+      alert("Provide valid username or passowrd");
     }
-    alert("Provide valid username or passowrd");
   }
 
   return (

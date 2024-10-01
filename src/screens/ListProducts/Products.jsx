@@ -62,6 +62,9 @@ const Products = ({ eachProducts, addToCart }) => {
           <button className="m-3">Like - {eachProducts.like}</button>
           <button className="m-3">Dislike - {eachProducts.dislike}</button>
         </div>
+        <button className="border-2 border-blue-400" id={eachProducts.id}>
+          Get details
+        </button>
       </div>
     </div>
   );

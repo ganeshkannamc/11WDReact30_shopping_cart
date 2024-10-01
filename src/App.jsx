@@ -8,6 +8,7 @@ import UnmatchedRoutes from "./screens/Error/UnmatchedRoutes";
 import CommonLayout from "./screens/Layout/CommonLayout";
 
 import { Routes, Route } from "react-router-dom";
+import Auth from "./Auth/Auth";
 
 function App() {
   return (
@@ -18,9 +19,15 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route element={<CommonLayout />}>
-          <Route path="/products" element={<ListProducts />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/checkout" element={<CheckOut />} />
+          <Route element={<Auth role={["Admin", "Basic"]} />}>
+            <Route path="/products" element={<ListProducts />} />
+            <Route path="/products/" element={<ListProducts />} />
+            <Route path="/checkout" element={<CheckOut />} />
+          </Route>
+
+          <Route element={<Auth role={["Admin"]} />}>
+            <Route path="/users" element={<Users />} />
+          </Route>
         </Route>
 
         <Route path="*" element={<UnmatchedRoutes />} />

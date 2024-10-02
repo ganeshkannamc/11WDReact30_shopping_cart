@@ -4,7 +4,7 @@ export const DataContext = createContext({});
 
 const DataProvider = ({ children }) => {
   let [registeredUser, setRegisteredUser] = useState([]);
-  let [loggedUser, setLoggedUser] = useState({});
+  let [loggedUser, setLoggedUser] = useState({status:false});
   let myProductsOri = [
     {
       id: 1,

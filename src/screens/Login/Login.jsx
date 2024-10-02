@@ -27,6 +27,8 @@ const Login = () => {
     if (validate) {
       setLoginInfo((preVal) => ({ ...preVal, status: true }));
       setLoggedUser(loginInfo);
+      setLoggedUser((preVal) => ({ ...preVal, status: true }));
+
       navigateToScreen("/products");
     } else {
       alert("Provide valid username or passowrd");

@@ -1,9 +1,10 @@
 import { DataContext } from "../../context/DataProvider";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Products = ({ eachProducts, addToCart }) => {
   let { cartItems } = useContext(DataContext);
-
+  let navigate = useNavigate();
   let checkIfExist = cartItems.some((itm) => itm.id == eachProducts.id);
 
   return (
@@ -62,7 +63,11 @@ const Products = ({ eachProducts, addToCart }) => {
           <button className="m-3">Like - {eachProducts.like}</button>
           <button className="m-3">Dislike - {eachProducts.dislike}</button>
         </div>
-        <button className="border-2 border-blue-400" id={eachProducts.id}>
+        <button
+          className="border-2 border-blue-400"
+          id={eachProducts.id}
+          onClick={(eve) => navigate(`${eve.target.id}`)}
+        >
           Get details
         </button>
       </div>

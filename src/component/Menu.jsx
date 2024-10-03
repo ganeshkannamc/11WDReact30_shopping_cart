@@ -12,6 +12,9 @@ const Menu = () => {
       <NavLink className="m-2 p-2" to="/checkout">
         Checkout
       </NavLink>
+      <NavLink className="m-2 p-2" to="/apicall">
+        API Example
+      </NavLink>
     </div>
   );
 };

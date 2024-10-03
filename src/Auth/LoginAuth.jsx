@@ -5,8 +5,11 @@ import { useContext } from "react";
 const LoginAuth = ({ role }) => {
   let pushToLogin = useNavigate();
   let { loggedUser, registeredUser } = useContext(DataContext);
+  let value = sessionStorage.getItem("loginInfo")
 
-  return loggedUser.status > 0 ? <Outlet /> : <h1>Please login...</h1>;
+  console.log("******************")
+  console.log(value)
+  return value == "true" ? <Outlet /> : <h1>Please login...</h1>;
 };
 
 export default LoginAuth;

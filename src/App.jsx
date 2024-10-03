@@ -5,6 +5,8 @@ import Users from "./screens/Users/Users";
 import CheckOut from "./screens/CheckOut/CheckOut";
 import UnmatchedRoutes from "./screens/Error/UnmatchedRoutes";
 
+import ApiCall from "./screens/API/ApiCall";
+
 import CommonLayout from "./screens/Layout/CommonLayout";
 
 import { Routes, Route } from "react-router-dom";
@@ -25,6 +27,7 @@ function App() {
               <Route path="/products" element={<ListProducts />} />
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/checkout" element={<CheckOut />} />
+              <Route path="/apicall" element={<ApiCall />} />
             </Route>
 
             <Route element={<Auth role={["Admin"]} />}>

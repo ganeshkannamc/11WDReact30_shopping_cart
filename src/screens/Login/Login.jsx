@@ -25,6 +25,8 @@ const Login = () => {
         itm.userName == loginInfo.username && itm.password == loginInfo.password
     );
     if (validate) {
+      localStorage.setItem("loginInfo", "true");
+      sessionStorage.setItem("loginInfo", "true");
       setLoginInfo((preVal) => ({ ...preVal, status: true }));
       setLoggedUser(loginInfo);
       setLoggedUser((preVal) => ({ ...preVal, status: true }));
